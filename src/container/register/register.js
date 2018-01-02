@@ -16,16 +16,16 @@ class Register extends React.Component{
             user: '',
             pwd: '',
             repeatpwd: '',
-            type: 'genuis'
+            type: 'genius'
         }
-        this.handelRegister = this.handelRegister.bind(this)
+        this.handleRegister = this.handleRegister.bind(this)
     }
     handleChange(key, value) {
         this.setState({
             [key]: value
         })
     }
-    handelRegister() {
+    handleRegister() {
         this.props.register(this.state)
         console.log(this.state)
     }
@@ -51,8 +51,8 @@ class Register extends React.Component{
                         >确认密码</InputItem>
                         <WhiteSpace />
                         <RadioItem 
-                            checked={this.state.type === 'genuis'}
-                            onChange={()=>this.handleChange('type','genuis')}
+                            checked={this.state.type === 'genius'}
+                            onChange={()=>this.handleChange('type','genius')}
                         >牛人</RadioItem>
                         <RadioItem 
                             checked={this.state.type === 'boss'}
@@ -60,7 +60,7 @@ class Register extends React.Component{
                         >boss</RadioItem>
                     </List>
                     <WhiteSpace />
-                    <Button type="primary" onClick={this.handelRegister}>注册</Button>
+                    <Button type="primary" onClick={this.handleRegister}>注册</Button>
                 </WingBlank>
             </div>
         )

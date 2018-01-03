@@ -6,7 +6,7 @@ import './logo.css'
      render() {
          return (
              <div className="logo-container">
-                 <img src={logoImg} />
+                 <img src={logoImg} alt={logoImg}/>
              </div>
          )
      }

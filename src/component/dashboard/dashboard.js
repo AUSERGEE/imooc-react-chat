@@ -6,7 +6,7 @@ import NavLinkBar from '../navlink/navlink'
 
 import Boss from '../../component/boss/boss'
 import Genius from '../../component/genius/genius'
-import Msg from '../../component/msg/msg'
+import Msg from '../../container/msg/msg'
 import User from '../../component/user/user'
 @connect(
     state=>state

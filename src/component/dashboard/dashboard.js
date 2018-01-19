@@ -8,10 +8,18 @@ import Boss from '../../component/boss/boss'
 import Genius from '../../component/genius/genius'
 import Msg from '../../container/msg/msg'
 import User from '../../component/user/user'
+
+import { getMsgList, recvMsg } from '../../redux/chat.redux'
+
 @connect(
-    state=>state
+    state=>state,
+    { getMsgList, recvMsg }
 )
 class DashBoard extends React.Component{
+    componentDidMount() {
+        this.props.getMsgList()
+		this.props.recvMsg()
+    }
     render() {
         const { pathname } = this.props.location
         const user = this.props.user
@@ -47,17 +55,19 @@ class DashBoard extends React.Component{
                 component: User
             }
         ]
-        return (<div>
-            <NavBar className='fixd-header' mode='dark'>{navList.find(v=>v.path===pathname).title}</NavBar>
-            <div style={{marginTop:45}}>
-                <Switch>
-                    {navList.map(v=>(
-                        <Route key={v.path} path={v.path} component={v.component}></Route>
-                    ))}
-                </Switch>
+        return (
+            <div>
+                <NavBar className='fixd-header' mode='dark'>{navList.find(v=>v.path===pathname).title}</NavBar>
+                <div style={{marginTop:45}}>
+                    <Switch>
+                        {navList.map(v=>(
+                            <Route key={v.path} path={v.path} component={v.component}></Route>
+                        ))}
+                    </Switch>
+                </div>
+                <NavLinkBar className='am-navbar' data={navList}></NavLinkBar>
             </div>
-            <NavLinkBar className='am-navbar' data={navList}></NavLinkBar>
-            </div>)
+        )
     }
 }
 export default DashBoard

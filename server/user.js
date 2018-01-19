@@ -6,6 +6,10 @@ const model = require('./model')
 const User = model.getModel('user')
 const Chat = model.getModel('chat')
 const _filter = {'pwd': 0, '__v': 0}
+
+// 删除聊天记录
+// Chat.remove({}, function(e, d){})
+
 Router.get('/list', function(req, res) {
     // 清除所有
     // User.remove({}, function(e,d){})

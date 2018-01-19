@@ -1,10 +1,10 @@
 import React from 'react'
-import io from 'socket.io-client'
+// import io from 'socket.io-client'
 import { connect } from 'react-redux'
-import { List, InputItem } from 'antd-mobile'
+import { List, InputItem, NavBar } from 'antd-mobile'
 import { getMsgList, sendMsg, recvMsg } from '../../redux/chat.redux'
 
-const socket = io('ws://localhost:9093')
+// const socket = io('ws://localhost:9093')
 
 @connect(
     state=>state,
@@ -20,13 +20,10 @@ class Chat extends React.Component{
         this.handleSubmit = this.handleSubmit.bind(this)
     }
     componentDidMount() {
-        this.props.getMsgList()
-        // socket.on('recvmsg',(data) => {
-        //     console.log('receive msg', data)
-        //     this.setState({
-        //         msg: [...this.state.msg, data.text]
-        //     })
-        // })
+        if (!this.props.chat.chatmsg.length) {
+			this.props.getMsgList()
+			this.props.recvMsg()	
+		}
     }
     handleSubmit() {
         const from = this.props.user._id
@@ -36,11 +33,27 @@ class Chat extends React.Component{
         this.setState({text: ''})
     }
     render() {
+        const Item = List.Item
+        const user = this.props.match.params.user
+        const chatmsgs = this.props.chat.chatmsg
+        console.log('chatmsgs', chatmsgs)
         return (
-            <div>
-                chat with user:{this.props.match.params.user}
-                {this.state.msg.map(v=>{
-                    return <p key={v}>{v}</p>
+            <div id='chat-page'>
+                <NavBar mode='dark'>{user}</NavBar>
+                {chatmsgs.map(v=>{
+                    return v.from === user ? (
+                        <List key={v._id}>
+                            <Item
+                            >{v.content}</Item>
+                        </List>
+                    ) : (
+                        <List key={v._id}>
+                            <Item 
+                                extra={'avatar'}
+                                className='chat-me'
+                                >{v.content}</Item>
+                        </List>
+                    )
                 })}
                 <div className="stick-footer">
                     <List>
@@ -53,7 +66,7 @@ class Chat extends React.Component{
                             extra={<span onClick={()=>this.handleSubmit()}>发送</span>}
                         ></InputItem>
                     </List>
-            </div>
+                </div>
             </div>
             
         )

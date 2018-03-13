@@ -15,5 +15,5 @@ create-react-app myApp
 ```
 3. 启动项目
 ```
-npm start
+npm start
 ```

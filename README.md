@@ -36,10 +36,6 @@ brew install mongodb
 ```
 8. 启动mongodb
 ```
-sudo mongod
+sudo mongod // 启动mongodb
+mongo // server运行
 ```
-启动mongodb
-```
-mongo
-```
-server运行
